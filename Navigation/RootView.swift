@@ -7,9 +7,34 @@
 
 import SwiftUI
 
-struct RootView: View {
+struct DetailsView: View {
+    var number: Int
+//    @Binding var path: [Int]
+    @Binding var path: NavigationPath
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationLink("Go to random number", value: Int.random(in: 0...1000))
+            .navigationTitle("Number \(number)")
+            .toolbar {
+                Button("Home") {
+//                    path.removeAll()
+                    path = NavigationPath()
+                }
+            }
+    }
+}
+
+struct RootView: View {
+//    @State private var path = [Int]()
+    @State private var path = NavigationPath()
+    
+    var body: some View {
+        NavigationStack(path: $path) {
+            DetailsView(number: 0, path: $path)
+                .navigationDestination(for: Int.self) { i in
+                    DetailsView(number: i, path: $path)
+                }
+        }
     }
 }
 

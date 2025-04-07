@@ -7,9 +7,28 @@
 
 import SwiftUI
 
+struct Student: Hashable {
+    var id = UUID()
+    let name: String
+    let age: Int
+}
+
 struct navigationDestination: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List(0..<100) { i in
+                NavigationLink("Selected \(i)", value: i)
+            }
+            .navigationDestination(for: Int.self) { selection in
+                Text("You selected \(selection)")
+                
+            }
+            .navigationDestination(for: Student.self, destination: { student in
+                Text("You selected \(student.name)")
+            })
+            .navigationTitle("Navi destination")
+            
+        }
     }
 }
 

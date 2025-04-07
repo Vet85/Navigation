@@ -9,7 +9,16 @@ import SwiftUI
 
 struct CustomizingNavigationBarAppearance: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List(0..<100) { row in
+                Text("Row \(row)")
+            }
+            .navigationTitle("Title goes here")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.blue)
+            .toolbarColorScheme(.dark)
+            .toolbar(.hidden, for: .navigationBar)
+        }
     }
 }
 
